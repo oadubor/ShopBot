@@ -1,8 +1,0 @@
-prefix=/home/hansk/shopbot_ws/devel
-
-Name: aruco_find
-Description: Description of aruco_find
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/hansk/shopbot_ws/devel/lib 
-Requires: 

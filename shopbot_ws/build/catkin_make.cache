@@ -1,2 +1,0 @@
-aruco_find
--DCATKIN_DEVEL_PREFIX=/home/hansk/shopbot_ws/devel -DCMAKE_INSTALL_PREFIX=/home/hansk/shopbot_ws/install -G Unix Makefiles
