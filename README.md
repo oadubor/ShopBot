@@ -3,13 +3,13 @@ Repository for Electromechanical Systems Design Capstone Project (Team 2 - "The 
 
 
 ## Requirements:
-Ubuntu 16
-ROS Kinetic
-Python
-OpenCV
+- Ubuntu 16
+- ROS Kinetic
+- Python
+- OpenCV
 
 ## ROS Packages:
-Joy
-usb_cam
-rosserial_arduino
+- Joy
+- usb_cam
+- rosserial_arduino
 
