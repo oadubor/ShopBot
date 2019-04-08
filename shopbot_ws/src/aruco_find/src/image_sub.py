@@ -5,7 +5,7 @@ import roslib
 import sys
 import rospy
 import cv2
-from std_msgs.msg imp ort String
+from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from detector import detector
@@ -18,7 +18,7 @@ class image_converter:
     self.image_pub = rospy.Publisher("image_topic_2",Image)
 
     self.bridge = CvBridge()
-    self.image_sub = rospy.Subscriber("camera/color/image_raw",Image,self.callback)
+    self.image_sub = rospy.Subscriber("/usb_cam/image_raw",Image,self.callback)
 
   def callback(self,data):
     try:
