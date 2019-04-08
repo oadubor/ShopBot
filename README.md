@@ -2,13 +2,13 @@
 Repository for Electromechanical Systems Design Capstone Project (Team 2 - "The Grocery Guys")   
 
 
-Requirements:
+## Requirements:
 Ubuntu 16
 ROS Kinetic
 Python
 OpenCV
 
-ROS Packages:
+## ROS Packages:
 Joy
 usb_cam
 rosserial_arduino
