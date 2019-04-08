@@ -5,7 +5,7 @@ import roslib
 import sys
 import rospy
 import cv2
-from std_msgs.msg import String
+from std_msgs.msg imp ort String
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
 from detector import detector
