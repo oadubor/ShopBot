@@ -21,3 +21,4 @@ Repository for Electromechanical Systems Design Capstone Project (Team 2 - "The 
 - Enter the following command:
 	-- ssh ubuntu@hanspi@wifi.local.cmu.edu
 - If prompted for a password use: ubuntu 
+- IP Adress of RASPI: 172.26.199.133
