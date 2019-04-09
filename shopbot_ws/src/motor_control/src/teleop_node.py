@@ -27,7 +27,7 @@ def callback(data):
 
     if abs(leftWheelVel) > -.1:
         pubLeft.publish(convertToInt(leftWheelVel))
-    if abs(rightWheelVel) > -1:
+    if abs(rightWheelVel) > -.1:
         pubRight.publish(convertToInt(rightWheelVel))
 
 # Intializes everything
