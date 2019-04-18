@@ -23,6 +23,22 @@ def convertToInt(raw):
 def callback(data):
     leftWheelVel = data.axes[1]
     rightWheelVel = data.axes[3]
+
+
+    Vac = data.buttons[0]
+    Valve = data.buttons[1]
+    global lastVac
+    global lastValve
+
+    if Vac > .5 and lastVac < .5:
+       pubVac.publish(1)
+    lastVac = Vac
+
+    if Valve > .5 and lastValve < .5:
+       pubValve.publish(1)
+    lastValve = Valve
+
+
     pubLeft.publish(convertToInt(leftWheelVel))
     pubRight.publish(convertToInt(rightWheelVel))
 
@@ -32,9 +48,15 @@ def start():
     rospy.init_node('teleop_node')
     global pubLeft
     global pubRight
+    global pubVac
+    global pubValve
+    lastVac = 0
+    lastValve = 0
     
     pubLeft = rospy.Publisher('leftVel', Int16)
     pubRight = rospy.Publisher('rightVel', Int16)
+    pubVac = rospy.Publisher('vac', Int16)
+    pubValve = rospy.Publisher('valve', Int16)
 
     # subscribed to joystick inputs on topic "joy"
     rospy.Subscriber("joy", Joy, callback)
