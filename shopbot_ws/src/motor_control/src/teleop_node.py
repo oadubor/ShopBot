@@ -12,7 +12,7 @@ from sensor_msgs.msg import Joy
 # axis 0 aka left stick horizonal controls angular speed
 
 def convertToInt(raw):
-    result = int(raw/2*200)
+    result = int(raw*200)
     #if result < 0:
     #    result -= 50
     #else:
@@ -23,12 +23,8 @@ def convertToInt(raw):
 def callback(data):
     leftWheelVel = data.axes[1]
     rightWheelVel = data.axes[3]
-  
-
-    if abs(leftWheelVel) > -.1:
-        pubLeft.publish(convertToInt(leftWheelVel))
-    if abs(rightWheelVel) > -.1:
-        pubRight.publish(convertToInt(rightWheelVel))
+    pubLeft.publish(convertToInt(leftWheelVel))
+    pubRight.publish(convertToInt(rightWheelVel))
 
 # Intializes everything
 def start():
