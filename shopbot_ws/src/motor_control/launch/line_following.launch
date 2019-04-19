@@ -1,6 +1,6 @@
 <launch>
 
-	<node name="telopControl" type="teleop_node.py" pkg="motor_control" output="screen"  />
+	<node name="lineFollowingCentral" type="line2.py" pkg="motor_control" output="screen"  />
 
 	<node name="serial_node1" type="serial_node.py" pkg="rosserial_python" output="screen">
 	   <param name="port" value="/dev/ttyACM0"/>
