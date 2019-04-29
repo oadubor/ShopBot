@@ -24,10 +24,11 @@ def callback(error):
     leftWheelVel = 50
     rightWheelVel = 50
 
-    if (error.data > 0):
-	leftWheelVel = 90 #go right
-    elif (error.data < 0):
-	rightWheelVel = 90 #go left
+    if (error.data < 0):
+	rightWheelVel = 90 #go right
+    elif (error.data > 0):
+	leftWheelVel = 90 #go left
+
 
 #    Vac = data.buttons[0]
 #    Valve = data.buttons[1]
