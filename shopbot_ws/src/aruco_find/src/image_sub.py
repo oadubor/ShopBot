@@ -33,8 +33,8 @@ class image_converter:
 
     image_aruco,pos,angle = detector(cv_image)
 
-    cv2.imshow("Image window", image_aruco)
-    cv2.waitKey(3)
+    #cv2.imshow("Image window", image_aruco)
+    #cv2.waitKey(3)
 
     try:
       self.image_pub.publish(self.bridge.cv2_to_imgmsg(image_aruco, "bgr8"))

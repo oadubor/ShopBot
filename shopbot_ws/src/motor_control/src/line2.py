@@ -11,54 +11,31 @@ from std_msgs.msg import Int16
 # axis 1 aka left stick vertical controls linear speed
 # axis 0 aka left stick horizonal controls angular speed
 
-#def convertToInt(raw):
- #   result = -int(raw*200)
-    #if result < 0:
-    #    result -= 50
-    #else:
-    #    result += 50
-  #  return result
 
+def callback(line_value):
+    
+    setPoint = 820
+    error = line_value.data - setPoint
 
-def callback(error):
-    leftWheelVel = 50
-    rightWheelVel = 50
+    #corr_val = min(abs(error)/100,1) * (40)    
+    corr_val = (abs(error)/100) * 40
 
-    if (error.data < 0):
-	rightWheelVel = 90 #go right
-    elif (error.data > 0):
-	leftWheelVel = 90 #go left
+    rospy.loginfo("The corr_val is currently: %f", corr_val)
 
+    leftWheelVel = -50
+    rightWheelVel = -50
 
-#    Vac = data.buttons[0]
-#    Valve = data.buttons[1]
-#    up = data.buttons[2]
-#    down = data.buttons[3]
-
-#    global lastVac
-#    global lastValve
-#    global lastStepup
-#    global lastStepdown
-
-#    if Vac > .5 and lastVac < .5:
-#       pubVac.publish(1)
-#    lastVac = Vac
-
-#    if Valve > .5 and lastValve < .5:
-#       pubValve.publish(1)
-#    lastValve = Valve
-
-#    if up > .5 and lastStepup < .5:
-#       pubStepup.publish(1)
-#    lastStepup = up
-
-
-#    if down > .5 and lastStepdown < .5
-#       pubStepdown.publish(1)
-#    lastStepdown = down
+    if (error < 0):
+	rightWheelVel = -50 - corr_val  #go right
+    elif (error > 0):
+	leftWheelVel = -50 - corr_val  #go left
 
     pubLeft.publish((leftWheelVel))
     pubRight.publish((rightWheelVel))
+
+def shutdownProcess():
+    pubLeft.publish(0)
+    pubRight.publish(0)
 
 # Intializes everything
 def start():
@@ -66,30 +43,18 @@ def start():
     rospy.init_node('teleop_node')
     global pubLeft
     global pubRight
-#    global pubVac
-#    global pubValve
-#    global pubStepup
-#    global pubStepdown
-
-
-
-#    lastVac = 0
-#    lastValve = 0
-#    lastStepup = 0
-#    lastStepdown = 0
     
     pubLeft = rospy.Publisher('leftVel', Int16)
     pubRight = rospy.Publisher('rightVel', Int16)
-#    pubVac = rospy.Publisher('vac', Int16)
-#    pubValve = rospy.Publisher('valve', Int16)
-#    pubStepup = rospy.Publisher('stepup', Int16)
-#    pubStepdown = rospy.Publisher('stepdown', Int16)
+
 
     # subscribed to joystick inputs on topic "joy"
 #    rospy.Subscriber("joy", Joy, callback)
-    rospy.Subscriber("error_value", Int16, callback)
+    rospy.Subscriber("line_value", Int16, callback)
     # starts the node
+    rospy.on_shutdown(shutdownProcess)
     rospy.spin()
+
 
 if __name__ == '__main__':
     start()
