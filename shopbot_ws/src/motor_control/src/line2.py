@@ -13,25 +13,51 @@ from std_msgs.msg import Int16
 
 
 def callback(line_value):
-    
-    setPoint = 820
-    error = line_value.data - setPoint
+
+    global lastError
+
+    Kp = 0.15
+    Kd = 0.5
+
+    baseSpeed = 50.0   
+
+    highPoint = 930 #830.0
+    lowPoint  = 300.0 #560.0 
+    setPoint = lowPoint + (highPoint - lowPoint)/2
+
+    error = float(line_value.data) - setPoint
+
+    corrSpeed = Kp * error + Kd * (error - lastError)
+    lastError = error
+	
+    rightWheelVel = baseSpeed + corrSpeed
+    leftWheelVel = baseSpeed - corrSpeed
+
+    if (rightWheelVel > 200):
+	rightWheelVel = 200
+    if (leftWheelVel > 200):
+	leftWheelVel = 200
+
+    if (rightWheelVel < 0):
+	rightWheelVel = 0
+    if (leftWheelVel < 0):
+	leftWheelVel = 0
 
     #corr_val = min(abs(error)/100,1) * (40)    
-    corr_val = (abs(error)/100) * 40
+#    corr_val = (abs(error)/100) * 10.0 
 
-    rospy.loginfo("The corr_val is currently: %f", corr_val)
+#    rospy.loginfo("The corr_val is currently: %f", corr_val)
 
-    leftWheelVel = -50
-    rightWheelVel = -50
+#    leftWheelVel = - (baseSpeed + corrSpeed)
+#    rightWheelVel = - (baseSpeed - corrSpeed)
 
-    if (error < 0):
-	rightWheelVel = -50 - corr_val  #go right
-    elif (error > 0):
-	leftWheelVel = -50 - corr_val  #go left
+#    if (error < 0):
+#	rightWheelVel = -50.0 - corr_val  #go right
+#    elif (error > 0):
+#	leftWheelVel = -50.0 - corr_val  #go left
 
-    pubLeft.publish((leftWheelVel))
-    pubRight.publish((rightWheelVel))
+    pubLeft.publish((-leftWheelVel))
+    pubRight.publish((-rightWheelVel))
 
 def shutdownProcess():
     pubLeft.publish(0)
@@ -43,10 +69,11 @@ def start():
     rospy.init_node('teleop_node')
     global pubLeft
     global pubRight
+    global lastError
     
     pubLeft = rospy.Publisher('leftVel', Int16)
     pubRight = rospy.Publisher('rightVel', Int16)
-
+    lastError = 0.0
 
     # subscribed to joystick inputs on topic "joy"
 #    rospy.Subscriber("joy", Joy, callback)
