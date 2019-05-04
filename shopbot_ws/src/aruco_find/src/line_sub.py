@@ -35,7 +35,8 @@ class image_converter:
 
     #cv2.imshow("Image window", image_aruco)
     #cv2.waitKey(3)
-
+    
+    
     try:
       self.image_pub.publish(self.bridge.cv2_to_imgmsg(image_line, "mono8"))
       self.error.publish(lineError) 
