@@ -54,7 +54,7 @@ def pos_callback(error):
     pubLeft.publish(vel)
     pubRight.publish(vel)
     if poser.stepDone == 0  and abs(correction) < .03 and vel < 20:
-        grabObject(11000,-11000)
+        grabObject(10000,-10000)
         poser.stepDone = 1
 
 def ang_callback(error):
@@ -68,9 +68,9 @@ def ang_callback(error):
 # Intializes everything
 def start():
     # publishing to "turtle1/cmd_vel" to control turtle1
-    global poser
+    #global poser
     rospy.init_node('visualServo_node')
-    poser = posServer()
+    #poser = posServer()
 
     global pubLeft
     global pubRight
@@ -92,6 +92,8 @@ def start():
     rospy.spin()
 
 if __name__ == '__main__':
+    global poser
+    poser = posServer()
     start()
 
 

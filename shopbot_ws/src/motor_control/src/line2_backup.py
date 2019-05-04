@@ -19,7 +19,7 @@ def callback(line_value):
     Kp = 0.10
     Kd = 0.25
 
-    baseSpeed = 30.0   
+    baseSpeed = 50.0   
 
     highPoint = 960.0 #830.0
     lowPoint  = 590.0 #560.0 
@@ -32,14 +32,6 @@ def callback(line_value):
 	
     rightWheelVel = baseSpeed + corrSpeed
     leftWheelVel = baseSpeed - corrSpeed
-
-#    if (error > 0):
-#	rightWheelVel += corrSpeed
-#	leftWheelVel -= corrSpeed*(2/3)
-    #elif (error < 0): 
-	#rightWheelVel += corrSpeed * (2/3)
-	#leftWheelVel -= corrSpeed
-
 
     if (rightWheelVel > 200):
 	rightWheelVel = 200

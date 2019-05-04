@@ -16,16 +16,19 @@ def callback(line_value):
 
     global lastError
 
-    Kp = 0.10
-    Kd = 0.25
+    Kp = 0.05
+    Kd = 0.3
 
-    baseSpeed = 30.0   
+    baseSpeed = 50.0   
 
-    highPoint = 960.0 #830.0
-    lowPoint  = 590.0 #560.0 
-    setPoint = lowPoint + (highPoint - lowPoint)/2
+    highPoint = 900.0 #830.0
+    #lowPoint  = 590.0 #560.0 
+    #setPoint = lowPoint + (highPoint - lowPoint)/2
 
-    error = float(line_value.data) - setPoint
+    error = float(line_value.data)-highPoint
+
+    if error > 0:
+	Kp = .35
 
     corrSpeed = Kp * error + Kd * (error - lastError)
     lastError = error
@@ -39,7 +42,7 @@ def callback(line_value):
     #elif (error < 0): 
 	#rightWheelVel += corrSpeed * (2/3)
 	#leftWheelVel -= corrSpeed
-
+    '''
 
     if (rightWheelVel > 200):
 	rightWheelVel = 200
@@ -51,6 +54,7 @@ def callback(line_value):
     if (leftWheelVel < 0):
 	leftWheelVel = 0
 
+    '''
     #corr_val = min(abs(error)/100,1) * (40)    
 #    corr_val = (abs(error)/100) * 10.0 
 
